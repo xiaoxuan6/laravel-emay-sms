@@ -12,7 +12,13 @@ namespace Vinhson\LaravelEmaySms\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static sendSimpleinterSms($mobiles, $content)
+ * @method static sendSimpleinterSMS($mobiles, $content, string $customSmsId = '', string $extendedCode = '')
+ * @method static sendPersonalitySMS(array $mobileContent = [], string $customSmsId = '', string $extendedCode = '')
+ * @method static getReport(int $number = 500)
+ * @method static getMo(int $number = 500)
+ * @method static getBalance()
+ *
+ * @see \Vinhson\LaravelEmaySms\LaravelEmaySmsHandler::class
  */
 class LaravelEmaySms extends Facade
 {

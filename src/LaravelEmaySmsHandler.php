@@ -18,11 +18,11 @@ use Vinhson\LaravelEmaySms\Result\{GetBalanceResult, GetMoResult, GetReportResul
 
 class LaravelEmaySmsHandler
 {
-    public const BASE_URI = 'www.btom.cn:8080';
+    private const BASE_URI = 'www.btom.cn:8080';
 
-    public static Client $client;
+    private static Client $client;
 
-    public const SAFE_URI = [
+    private const SAFE_URI = [
         'inter_single' => '/inter/sendSingleSMS',
         'inter_batch' => '/inter/sendBatchSMS',
         'inter_batch_only' => '/inter/sendBatchOnlySMS',
@@ -38,7 +38,7 @@ class LaravelEmaySmsHandler
         'inter_send_template_variable' => '/inter/sendTemplateVariableSMS',
     ];
 
-    public const GENERAL_URI = [
+    private const GENERAL_URI = [
         'simpleinter_send' => '/simpleinter/sendSMS',
         'simpleinter_send_personality' => '/simpleinter/sendPersonalitySMS',
         'simpleinter_report' => '/simpleinter/getReport',
@@ -67,7 +67,7 @@ class LaravelEmaySmsHandler
     /**
      * @return Client
      */
-    public static function getClient(): Client
+    private static function getClient(): Client
     {
         if (empty(self::$client)) {
             self::$client = new Client(['timeout' => 30, 'verify' => false]);
@@ -148,42 +148,11 @@ class LaravelEmaySmsHandler
     }
 
     /**
-     * 发送短链短信接口
-     *
-     */
-    public function sendShortLinkSMS()
-    {
-        $params = [
-//            'gzip' => 'on'
-//            'content' => '',
-//            'url' => '',
-//            'shortLinkRule' => '',
-//            'timerTime' => '',
-//            'extendedCode' => '',
-//            'requestTime' => '',
-//            'requestValidPeriod' => '',
-        ];
-
-//        return new GetMoResult($this->request(self::GENERAL_URI['inter_send_short_link_sms'], $params));
-    }
-
-    /**
-     * 获取短链点击明细接口
-     *
-     * @return GetMoResult
-     */
-//    public function sendShortLinkSMS(): GetMoResult
-//    {
-//        return new GetMoResult($this->request(self::GENERAL_URI['inter_short_link'], ['number' => $number]));
-//    }
-
-    /**
      * @param $uri
      * @param array $args
-     * @param string $method
      * @return array
      */
-    public function request($uri, array $args = [], string $method = Request::METHOD_GET): array
+    private function request($uri, array $args = []): array
     {
         $timestamp = Carbon::now()->format('YmdHis');
 
@@ -196,8 +165,19 @@ class LaravelEmaySmsHandler
 
         $url = sprintf('%s%s', self::BASE_URI, $uri) . '?' . http_build_query(array_merge($params, $args));
 
+        return $this->call($url);
+    }
+
+    /**
+     * @param $uri
+     * @param string $method
+     * @param array $options
+     * @return array
+     */
+    private function call($uri, string $method = Request::METHOD_GET, array $options = []): array
+    {
         try {
-            $result = $this->getClient()->request($method, $url);
+            $result = $this->getClient()->request($method, $uri, $options);
 
             return [
                 'status' => $result->getStatusCode(),
