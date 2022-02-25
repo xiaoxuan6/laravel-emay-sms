@@ -7,11 +7,11 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-namespace Vinhson\LaravelPackageSkeleton;
+namespace Vinhson\LaravelEmaySms;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelPackageSkeletonServiceProvider extends ServiceProvider
+class LaravelEmaySmsServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -28,16 +28,8 @@ class LaravelPackageSkeletonServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            dirname(__DIR__) . '/migrations/' => database_path('migrations'),
-        ], 'migrations');
-
-        $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('config.php')
-        ], 'config');
-
-        if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(dirname(__DIR__) . '/migrations/');
-        }
+            __DIR__ . '/../config/config.php' => config_path('laravel-emay-sms.php')
+        ], 'laravel-emay-sms');
     }
 
     /**
@@ -49,6 +41,9 @@ class LaravelPackageSkeletonServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton('laravel-emay-sms', function ($app) {
+            return new LaravelEmaySmsManager($app);
+        });
     }
 
     /**
@@ -58,6 +53,8 @@ class LaravelPackageSkeletonServiceProvider extends ServiceProvider
      */
     public function provides(): array
     {
-        return [];
+        return [
+            'laravel-emay-sms'
+        ];
     }
 }

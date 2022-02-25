@@ -1,16 +1,16 @@
 {
-    "name": "james.xue/laravel-package-skeleton",
-    "description": "Laravel package template",
+    "name": "james.xue/laravel-emay-sms",
+    "description": "Laravel emay sms API",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Vinhson\\LaravelPackageSkeleton\\": "src/"
+            "Vinhson\\LaravelEmaySms\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vinhson\\LaravelPackageSkeleton\\Tests\\": "tests/"
+            "Vinhson\\LaravelEmaySms\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -26,14 +26,18 @@
         "mockery/mockery": "^1.5"
     },
     "require": {
-        "php": ">=7.2.5",
-        "laravel/framework": "^6.0||^7.0||^8.0||^9.0"
+        "php": ">=8.0",
+        "laravel/framework": "^6.0||^7.0||^8.0||^9.0",
+        "guzzlehttp/guzzle": "7.4.x-dev"
     },
     "extra": {
         "laravel": {
             "providers":[
-                "Vinhson\\LaravelPackageSkeleton\\LaravelPackageSkeletonServiceProvider"
-            ]
+              "Vinhson\\LaravelEmaySms\\LaravelEmaySmsServiceProvider"
+            ],
+            "aliases":{
+                "laravel-emay-sms": "Vinhson\\LaravelEmaySms\\Facades\\LaravelEmaySms"
+            }
         }
     },
     "minimum-stability": "dev",

@@ -7,24 +7,23 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-namespace Vinhson\LaravelPackageSkeleton\Tests;
+namespace Vinhson\LaravelEmaySms\Tests;
 
+use Mockery;
+use Illuminate\Support\Arr;
 use Illuminate\Foundation\Application;
-use Illuminate\Database\Schema\Blueprint;
-use Vinhson\LaravelPackageSkeleton\LaravelPackageSkeletonServiceProvider;
+use Mockery\{LegacyMockInterface, MockInterface};
+use Vinhson\LaravelEmaySms\Facades\LaravelEmaySms;
+use Vinhson\LaravelEmaySms\LaravelEmaySmsServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
-    protected function setUp(): void
+    protected function getEnvironmentSetUp($app)
     {
-        parent::setUp();
-
-//        $this->setUpDatabase();
+        $app['config']->set('laravel-emay-sms', [
+            'appId' => '******',
+            'secret' => '******',
+        ]);
     }
 
     /**
@@ -37,21 +36,38 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     protected function getPackageProviders($app): array
     {
         return [
-            LaravelPackageSkeletonServiceProvider::class
+            LaravelEmaySmsServiceProvider::class
         ];
     }
 
     /**
-     * @deprecated
+     * Get package aliases.
+     *
+     * @param Application $app
+     *
+     * @return array
      */
-    private function setUpDatabase()
+    protected function getPackageAliases($app)
     {
-        $this->app['db']->connection()->getSchemaBuilder()->dropIfExists('authors');
+        return [
+            'laravel-emay-sms' => LaravelEmaySms::class,
+        ];
+    }
 
-        $this->app['db']->connection()->getSchemaBuilder()->create('authors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
-        });
+    /**
+     * @param $class
+     * @param $method
+     * @param $params
+     * @param $response
+     * @return LegacyMockInterface|MockInterface|null
+     */
+    protected function mockery($class, $method, $params, $response): MockInterface|LegacyMockInterface|null
+    {
+        return Mockery::mock($class)
+            ->shouldReceive($method)
+            ->once()
+            ->withArgs(Arr::wrap($params))
+            ->andReturn($response)
+            ->getMock();
     }
 }

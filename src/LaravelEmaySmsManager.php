@@ -1,0 +1,45 @@
+<?php
+/**
+ * This file is part of PHP CS Fixer.
+ *
+ * (c) vinhson <15227736751@qq.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+namespace Vinhson\LaravelEmaySms;
+
+use Illuminate\Support\Manager;
+
+class LaravelEmaySmsManager extends Manager
+{
+    private $instance;
+
+    /**
+     * Get a driver instance.
+     */
+    public function driver($driver = null)
+    {
+        if (empty($this->instance)) {
+            $this->instance = $this->createSearchDriver();
+        }
+
+        return $this->instance;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDefaultDriver(): string
+    {
+        return '';
+    }
+
+    /**
+     * @return LaravelEmaySmsHandler
+     */
+    public function createSearchDriver(): LaravelEmaySmsHandler
+    {
+        return new LaravelEmaySmsHandler($this->config->get('laravel-emay-sms', []));
+    }
+}

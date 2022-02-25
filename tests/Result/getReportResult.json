@@ -1,0 +1,25 @@
+{
+  "code": "SUCCESS",
+  "data": [
+    {
+      "mobile": "15538850000",
+      "smsId": "20170392833833891100",
+      "customSmsId": "1553885000011111",
+      "state": "DELIVRD",
+      "desc": "成功",
+      "receiveTime": "2017-03-15 12:00:00",
+      "submitTime": "2017-03-15 12:00:00",
+      "extendedCode": "123"
+    },
+    {
+      "mobile": "15538850001",
+      "smsId": "20170392833833891101",
+      "customSmsId": "1553885000011112",
+      "state": "DELIVRD",
+      "desc": "成功",
+      "receiveTime": "2017-03-15 12:00:00",
+      "submitTime": "2017-03-15 12:00:00",
+      "extendedCode": "123"
+    }
+  ]
+}
