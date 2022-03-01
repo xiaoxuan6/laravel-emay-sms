@@ -1,0 +1,33 @@
+name: execute php test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: phpunit Job
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php_version: [7.3, 8.0, 8.1]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php_version }}
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: PHPUnit check
+        run: ./vendor/bin/phpunit
+
