@@ -71,6 +71,29 @@ abstract class Handler
 
     /**
      * @param $uri
+     * @param array $args
+     * @return array
+     */
+    protected function postRequest($uri, array $args = []): array
+    {
+        $timestamp = Carbon::now()->format('YmdHis');
+
+        $params = [
+            'appId' => $this->appId,
+            'timestamp' => $timestamp,
+        ];
+
+        $params['sign'] = md5($this->appId . $this->secret . $timestamp);
+
+        $params = array_merge($params, $args);
+
+        $url = sprintf('%s%s', self::BASE_URI, $uri);
+
+        return $this->call($url, Request::METHOD_POST, ['body' => json_encode($params, JSON_UNESCAPED_UNICODE)]);
+    }
+
+    /**
+     * @param $uri
      * @param string $method
      * @param array $options
      * @return array

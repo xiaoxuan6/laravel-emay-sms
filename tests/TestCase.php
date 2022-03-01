@@ -85,4 +85,17 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $class
         );
     }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    protected function getResponse($data): array
+    {
+        return [
+            'status' => 200,
+            'data' => $data,
+            'msg' => 'ok'
+        ];
+    }
 }

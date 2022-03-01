@@ -129,17 +129,4 @@ class NoteSMSTest extends TestCase
         $this->assertFalse($result->isFail(), $result->getReason());
         $this->assertNotEmpty($result->getData(), $result->getReason());
     }
-
-    /**
-     * @param $data
-     * @return array
-     */
-    private function getResponse($data): array
-    {
-        return [
-            'status' => 200,
-            'data' => $data,
-            'msg' => 'ok'
-        ];
-    }
 }

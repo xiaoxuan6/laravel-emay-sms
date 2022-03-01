@@ -31,7 +31,7 @@ class Driver
     /**
      * @return InternationalSMSHandler
      */
-    public function InternationalSMS(): InternationalSMSHandler
+    public function internationalSMS(): InternationalSMSHandler
     {
         return new InternationalSMSHandler($this->config);
     }

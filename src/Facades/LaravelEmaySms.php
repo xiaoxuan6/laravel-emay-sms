@@ -14,7 +14,7 @@ use Vinhson\LaravelEmaySms\Handler\{InternationalSMSHandler, NoteSMSHandler};
 
 /**
  * @method static NoteSMSHandler noteSms()
- * @method static InternationalSMSHandler InternationalSMS()
+ * @method static InternationalSMSHandler internationalSMS()
  *
  * @see \Vinhson\LaravelEmaySms\Driver::class
  */
