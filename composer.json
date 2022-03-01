@@ -26,10 +26,10 @@
         "mockery/mockery": "^1.5"
     },
     "require": {
-        "php": ">=8.0",
+        "php": ">=7.2",
+        "ext-json": "*",
         "laravel/framework": "^6.0||^7.0||^8.0||^9.0",
-        "guzzlehttp/guzzle": "7.4.x-dev",
-      "ext-json": "*"
+        "guzzlehttp/guzzle": "7.4.x-dev"
     },
     "extra": {
         "laravel": {

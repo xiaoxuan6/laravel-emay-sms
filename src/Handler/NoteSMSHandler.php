@@ -7,7 +7,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-namespace Vinhson\LaravelEmaySms\Scenes;
+namespace Vinhson\LaravelEmaySms\Handler;
 
 use Illuminate\Support\Arr;
 use Vinhson\LaravelEmaySms\Result\{GetBalanceResult, GetMoResult, GetReportResult, SendPersonalitySMSResult, SendSimpleinterSMSResult};

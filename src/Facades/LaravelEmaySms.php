@@ -10,7 +10,7 @@
 namespace Vinhson\LaravelEmaySms\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Vinhson\LaravelEmaySms\Scenes\{InternationalSMSHandler, NoteSMSHandler};
+use Vinhson\LaravelEmaySms\Handler\{InternationalSMSHandler, NoteSMSHandler};
 
 /**
  * @method static NoteSMSHandler noteSms()

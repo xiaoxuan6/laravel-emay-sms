@@ -10,7 +10,7 @@
 namespace Vinhson\LaravelEmaySms\Tests;
 
 use Vinhson\LaravelEmaySms\{Driver};
-use Vinhson\LaravelEmaySms\Scenes\NoteSMSHandler;
+use Vinhson\LaravelEmaySms\Handler\NoteSMSHandler;
 use Vinhson\LaravelEmaySms\Result\{GetBalanceResult, GetMoResult, GetReportResult, SendPersonalitySMSResult, SendSimpleinterSMSResult};
 
 class NoteSMSTest extends TestCase

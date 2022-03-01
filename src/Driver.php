@@ -9,7 +9,7 @@
  */
 namespace Vinhson\LaravelEmaySms;
 
-use Vinhson\LaravelEmaySms\Scenes\{InternationalSMSHandler, NoteSMSHandler};
+use Vinhson\LaravelEmaySms\Handler\{InternationalSMSHandler, NoteSMSHandler};
 
 class Driver
 {
