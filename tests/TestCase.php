@@ -61,7 +61,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
      * @param $response
      * @return LegacyMockInterface|MockInterface|null
      */
-    protected function mockery($class, $method, $params, $response): MockInterface|LegacyMockInterface|null
+    protected function mockery($class, $method, $params, $response)
     {
         return Mockery::mock($class)
             ->shouldReceive($method)
