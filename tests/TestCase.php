@@ -14,7 +14,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Foundation\Application;
 use Mockery\{LegacyMockInterface, MockInterface};
 use Vinhson\LaravelEmaySms\Facades\LaravelEmaySms;
-use Vinhson\LaravelEmaySms\LaravelEmaySmsServiceProvider;
+use Vinhson\LaravelEmaySms\{Driver, LaravelEmaySmsServiceProvider};
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -69,5 +69,20 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             ->withArgs(Arr::wrap($params))
             ->andReturn($response)
             ->getMock();
+    }
+
+    /**
+     * @param $class
+     * @param $method
+     * @return LegacyMockInterface|MockInterface|null
+     */
+    protected function createDriver($class, $method)
+    {
+        return $this->mockery(
+            Driver::class,
+            $method,
+            [],
+            $class
+        );
     }
 }

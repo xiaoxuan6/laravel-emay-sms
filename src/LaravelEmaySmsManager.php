@@ -21,7 +21,7 @@ class LaravelEmaySmsManager extends Manager
     public function driver($driver = null)
     {
         if (empty($this->instance)) {
-            $this->instance = $this->createSearchDriver();
+            $this->instance = $this->createDriver($driver);
         }
 
         return $this->instance;
@@ -36,10 +36,11 @@ class LaravelEmaySmsManager extends Manager
     }
 
     /**
-     * @return LaravelEmaySmsHandler
+     * @param $driver
+     * @return Driver
      */
-    public function createSearchDriver(): LaravelEmaySmsHandler
+    protected function createDriver($driver = null): Driver
     {
-        return new LaravelEmaySmsHandler($this->config->get('laravel-emay-sms', []));
+        return new Driver($this->config->get('laravel-emay-sms', []));
     }
 }

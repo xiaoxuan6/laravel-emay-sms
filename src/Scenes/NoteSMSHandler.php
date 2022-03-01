@@ -7,21 +7,13 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
-namespace Vinhson\LaravelEmaySms;
+namespace Vinhson\LaravelEmaySms\Scenes;
 
-use Carbon\Carbon;
-use GuzzleHttp\Client;
 use Illuminate\Support\Arr;
-use Symfony\Component\HttpFoundation\Request;
-use GuzzleHttp\Exception\{GuzzleException, RequestException};
 use Vinhson\LaravelEmaySms\Result\{GetBalanceResult, GetMoResult, GetReportResult, SendPersonalitySMSResult, SendSimpleinterSMSResult};
 
-class LaravelEmaySmsHandler
+class NoteSMSHandler extends Handler
 {
-    private const BASE_URI = 'www.btom.cn:8080';
-
-    private static Client $client;
-
     private const SAFE_URI = [
         'inter_single' => '/inter/sendSingleSMS',
         'inter_batch' => '/inter/sendBatchSMS',
@@ -47,34 +39,6 @@ class LaravelEmaySmsHandler
         'inter_send_short_link_sms' => '/inter/sendShortLinkSMS',
         'inter_short_link' => '/inter/getShortLink',
     ];
-
-    /**
-     * @var string|mixed
-     */
-    private string $appId;
-
-    /**
-     * @var string|mixed
-     */
-    private string $secret;
-
-    public function __construct($config)
-    {
-        $this->appId = $config['appId'] ?? '';
-        $this->secret = $config['secret'] ?? '';
-    }
-
-    /**
-     * @return Client
-     */
-    private static function getClient(): Client
-    {
-        if (empty(self::$client)) {
-            self::$client = new Client(['timeout' => 30, 'verify' => false]);
-        }
-
-        return self::$client;
-    }
 
     /**
      * 发送短信接口
@@ -145,51 +109,5 @@ class LaravelEmaySmsHandler
     public function getBalance(): GetBalanceResult
     {
         return new GetBalanceResult($this->request(self::GENERAL_URI['simpleinter_balance']));
-    }
-
-    /**
-     * @param $uri
-     * @param array $args
-     * @return array
-     */
-    private function request($uri, array $args = []): array
-    {
-        $timestamp = Carbon::now()->format('YmdHis');
-
-        $params = [
-            'appId' => $this->appId,
-            'timestamp' => $timestamp,
-        ];
-
-        $params['sign'] = md5($this->appId . $this->secret . $timestamp);
-
-        $url = sprintf('%s%s', self::BASE_URI, $uri) . '?' . http_build_query(array_merge($params, $args));
-
-        return $this->call($url);
-    }
-
-    /**
-     * @param $uri
-     * @param string $method
-     * @param array $options
-     * @return array
-     */
-    private function call($uri, string $method = Request::METHOD_GET, array $options = []): array
-    {
-        try {
-            $result = $this->getClient()->request($method, $uri, $options);
-
-            return [
-                'status' => $result->getStatusCode(),
-                'data' => json_decode($result->getBody()->getContents(), true),
-                'msg' => 'ok'
-            ];
-        } catch (RequestException | GuzzleException $exception) {
-            return [
-                'status' => $exception->getCode(),
-                'data' => '',
-                'msg' => $exception->getMessage(),
-            ];
-        }
     }
 }

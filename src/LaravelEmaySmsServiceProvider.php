@@ -18,7 +18,7 @@ class LaravelEmaySmsServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected bool $defer = true;
+    protected $defer = true;
 
     /**
      * Bootstrap any application services.
