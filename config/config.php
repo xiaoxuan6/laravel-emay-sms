@@ -8,6 +8,6 @@
  * with this source code in the file LICENSE.
  */
 return [
-    'appId' => '******',
-    'secret' => '******',
+    'appId' => env('SMS_APP_ID', '******'),
+    'secret' => env('SMS_SECRET', '******'),
 ];

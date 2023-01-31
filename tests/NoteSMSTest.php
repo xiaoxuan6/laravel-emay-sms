@@ -7,11 +7,16 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms\Tests;
 
-use Vinhson\LaravelEmaySms\{Driver};
 use Vinhson\LaravelEmaySms\Handler\NoteSMSHandler;
-use Vinhson\LaravelEmaySms\Result\{GetBalanceResult, GetMoResult, GetReportResult, SendPersonalitySMSResult, SendSimpleinterSMSResult};
+use Vinhson\LaravelEmaySms\Result\GetBalanceResult;
+use Vinhson\LaravelEmaySms\Result\GetMoResult;
+use Vinhson\LaravelEmaySms\Result\GetReportResult;
+use Vinhson\LaravelEmaySms\Result\SendPersonalitySMSResult;
+use Vinhson\LaravelEmaySms\Result\SendSimpleinterSMSResult;
+use Vinhson\LaravelEmaySms\{Driver};
 
 class NoteSMSTest extends TestCase
 {
@@ -26,7 +31,7 @@ class NoteSMSTest extends TestCase
                 NoteSMSHandler::class,
                 'sendSimpleinterSMS',
                 ['17621838830', 'test'],
-                new SendSimpleinterSMSResult($this->getResponse(json_decode(file_get_contents(__DIR__ . '/Result/sendSimpleinterSMSResult.json'), true)))
+                new SendSimpleinterSMSResult($this->getResponse(json_decode(file_get_contents(__DIR__.'/Result/sendSimpleinterSMSResult.json'), true)))
             ),
             'noteSms'
         );
@@ -49,7 +54,7 @@ class NoteSMSTest extends TestCase
                 NoteSMSHandler::class,
                 'sendPersonalitySMS',
                 [['17621838830' => 'test']],
-                new SendPersonalitySMSResult($this->getResponse(json_decode(file_get_contents(__DIR__ . '/Result/sendPersonalitySMSResult.json'), true)))
+                new SendPersonalitySMSResult($this->getResponse(json_decode(file_get_contents(__DIR__.'/Result/sendPersonalitySMSResult.json'), true)))
             ),
             'noteSms'
         );
@@ -72,7 +77,7 @@ class NoteSMSTest extends TestCase
                 NoteSMSHandler::class,
                 'getReport',
                 '10',
-                new GetReportResult($this->getResponse(json_decode(file_get_contents(__DIR__ . '/Result/getReportResult.json'), true)))
+                new GetReportResult($this->getResponse(json_decode(file_get_contents(__DIR__.'/Result/getReportResult.json'), true)))
             ),
             'noteSms'
         );
@@ -95,7 +100,7 @@ class NoteSMSTest extends TestCase
                 NoteSMSHandler::class,
                 'getMo',
                 '10',
-                new GetMoResult($this->getResponse(json_decode(file_get_contents(__DIR__ . '/Result/getMoResult.json'), true)))
+                new GetMoResult($this->getResponse(json_decode(file_get_contents(__DIR__.'/Result/getMoResult.json'), true)))
             ),
             'noteSms'
         );
@@ -118,7 +123,7 @@ class NoteSMSTest extends TestCase
                 NoteSMSHandler::class,
                 'getBalance',
                 null,
-                new GetBalanceResult($this->getResponse(json_decode(file_get_contents(__DIR__ . '/Result/getBalanceResult.json'), true)))
+                new GetBalanceResult($this->getResponse(json_decode(file_get_contents(__DIR__.'/Result/getBalanceResult.json'), true)))
             ),
             'noteSms'
         );

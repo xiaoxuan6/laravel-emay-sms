@@ -7,11 +7,12 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms\Tests;
 
 use Vinhson\LaravelEmaySms\Driver;
-use Vinhson\LaravelEmaySms\Result\{SendSingleIMSResult};
 use Vinhson\LaravelEmaySms\Handler\InternationalSMSHandler;
+use Vinhson\LaravelEmaySms\Result\{SendSingleIMSResult};
 
 class InternationalSMSTest extends TestCase
 {
@@ -26,7 +27,7 @@ class InternationalSMSTest extends TestCase
                 InternationalSMSHandler::class,
                 'sendSingleIMS',
                 ['123', '123'],
-                new SendSingleIMSResult($this->getResponse(json_decode(file_get_contents(__DIR__ . '/Result/sendSingleIMSResult.json'), true)))
+                new SendSingleIMSResult($this->getResponse(json_decode(file_get_contents(__DIR__.'/Result/sendSingleIMSResult.json'), true)))
             ),
             'internationalSMS'
         );

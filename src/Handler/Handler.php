@@ -7,12 +7,14 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms\Handler;
 
 use Carbon\Carbon;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\HttpFoundation\Request;
-use GuzzleHttp\Exception\{GuzzleException, RequestException};
 
 abstract class Handler
 {
@@ -50,7 +52,7 @@ abstract class Handler
 
     /**
      * @param $uri
-     * @param array $args
+     * @param  array  $args
      * @return array
      */
     protected function request($uri, array $args = []): array
@@ -62,16 +64,16 @@ abstract class Handler
             'timestamp' => $timestamp,
         ];
 
-        $params['sign'] = md5($this->appId . $this->secret . $timestamp);
+        $params['sign'] = md5($this->appId.$this->secret.$timestamp);
 
-        $url = sprintf('%s%s', self::BASE_URI, $uri) . '?' . http_build_query(array_merge($params, $args));
+        $url = sprintf('%s%s', self::BASE_URI, $uri).'?'.http_build_query(array_merge($params, $args));
 
         return $this->call($url);
     }
 
     /**
      * @param $uri
-     * @param array $args
+     * @param  array  $args
      * @return array
      */
     protected function postRequest($uri, array $args = []): array
@@ -83,7 +85,7 @@ abstract class Handler
             'timestamp' => $timestamp,
         ];
 
-        $params['sign'] = md5($this->appId . $this->secret . $timestamp);
+        $params['sign'] = md5($this->appId.$this->secret.$timestamp);
 
         $params = array_merge($params, $args);
 
@@ -94,8 +96,8 @@ abstract class Handler
 
     /**
      * @param $uri
-     * @param string $method
-     * @param array $options
+     * @param  string  $method
+     * @param  array  $options
      * @return array
      */
     private function call($uri, string $method = Request::METHOD_GET, array $options = []): array
@@ -106,9 +108,9 @@ abstract class Handler
             return [
                 'status' => $result->getStatusCode(),
                 'data' => json_decode($result->getBody()->getContents(), true),
-                'msg' => 'ok'
+                'msg' => 'ok',
             ];
-        } catch (RequestException | GuzzleException $exception) {
+        } catch (RequestException|GuzzleException $exception) {
             return [
                 'status' => $exception->getCode(),
                 'data' => '',

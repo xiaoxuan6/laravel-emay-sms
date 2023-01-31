@@ -7,10 +7,15 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms\Handler;
 
 use Illuminate\Support\Arr;
-use Vinhson\LaravelEmaySms\Result\{GetBalanceResult, GetMoResult, GetReportResult, SendPersonalitySMSResult, SendSimpleinterSMSResult};
+use Vinhson\LaravelEmaySms\Result\GetBalanceResult;
+use Vinhson\LaravelEmaySms\Result\GetMoResult;
+use Vinhson\LaravelEmaySms\Result\GetReportResult;
+use Vinhson\LaravelEmaySms\Result\SendPersonalitySMSResult;
+use Vinhson\LaravelEmaySms\Result\SendSimpleinterSMSResult;
 
 class NoteSMSHandler extends Handler
 {
@@ -45,8 +50,8 @@ class NoteSMSHandler extends Handler
      *
      * @param $mobiles
      * @param $content
-     * @param string $customSmsId
-     * @param string $extendedCode
+     * @param  string  $customSmsId
+     * @param  string  $extendedCode
      * @return SendSimpleinterSMSResult
      */
     public function sendSimpleinterSMS($mobiles, $content, string $customSmsId = '', string $extendedCode = ''): SendSimpleinterSMSResult
@@ -64,17 +69,17 @@ class NoteSMSHandler extends Handler
     /**
      * 个性短信接口
      *
-     * @param array $mobileContent
-     * @param string $customSmsId
-     * @param string $extendedCode
+     * @param  array  $mobileContent
+     * @param  string  $customSmsId
+     * @param  string  $extendedCode
      * @return SendPersonalitySMSResult
      */
     public function sendPersonalitySMS(array $mobileContent = [], string $customSmsId = '', string $extendedCode = ''): SendPersonalitySMSResult
     {
         $params = $mobileContent + [
-                'customSmsId' => $customSmsId,
-                'extendedCode' => $extendedCode,
-            ];
+            'customSmsId' => $customSmsId,
+            'extendedCode' => $extendedCode,
+        ];
 
         return new SendPersonalitySMSResult($this->request(self::GENERAL_URI['simpleinter_send_personality'], $params));
     }
@@ -82,7 +87,7 @@ class NoteSMSHandler extends Handler
     /**
      * 获取状态报告接口
      *
-     * @param int $number
+     * @param  int  $number
      * @return GetReportResult
      */
     public function getReport(int $number = 500): GetReportResult
@@ -93,7 +98,7 @@ class NoteSMSHandler extends Handler
     /**
      * 获取上行接口
      *
-     * @param int $number
+     * @param  int  $number
      * @return GetMoResult
      */
     public function getMo(int $number = 500): GetMoResult

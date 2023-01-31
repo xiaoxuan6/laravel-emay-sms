@@ -7,9 +7,11 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms;
 
-use Vinhson\LaravelEmaySms\Handler\{InternationalSMSHandler, NoteSMSHandler};
+use Vinhson\LaravelEmaySms\Handler\InternationalSMSHandler;
+use Vinhson\LaravelEmaySms\Handler\NoteSMSHandler;
 
 class Driver
 {
