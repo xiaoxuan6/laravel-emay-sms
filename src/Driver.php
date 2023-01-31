@@ -18,10 +18,8 @@ class Driver
 {
     public function __construct(
         protected Repository $config
-    )
-    {
+    ) {
     }
-
 
     /**
      * @return NoteSMSHandler

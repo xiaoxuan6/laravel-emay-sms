@@ -23,6 +23,7 @@ abstract class Handler
      * @var array|mixed
      */
     private mixed $secret;
+
     /**
      * @var array|mixed
      */
@@ -30,15 +31,14 @@ abstract class Handler
 
     public function __construct(
         protected Repository $config
-    )
-    {
+    ) {
         $this->appId = $this->config->get('laravel-emay-sms.app_id', '');
         $this->secret = $this->config->get('laravel-emay-sms.secret', '');
     }
 
     /**
      * @param $uri
-     * @param array $args
+     * @param  array  $args
      * @return array
      */
     protected function request($uri, array $args = []): array
@@ -50,16 +50,16 @@ abstract class Handler
             'timestamp' => $timestamp,
         ];
 
-        $params['sign'] = md5($this->appId . $this->secret . $timestamp);
+        $params['sign'] = md5($this->appId.$this->secret.$timestamp);
 
-        $url = sprintf('%s%s', self::BASE_URI, $uri) . '?' . http_build_query(array_merge($params, $args));
+        $url = sprintf('%s%s', self::BASE_URI, $uri).'?'.http_build_query(array_merge($params, $args));
 
         return $this->call($url);
     }
 
     /**
      * @param $uri
-     * @param array $args
+     * @param  array  $args
      * @return array
      */
     protected function postRequest($uri, array $args = []): array
@@ -71,7 +71,7 @@ abstract class Handler
             'timestamp' => $timestamp,
         ];
 
-        $params['sign'] = md5($this->appId . $this->secret . $timestamp);
+        $params['sign'] = md5($this->appId.$this->secret.$timestamp);
 
         $params = array_merge($params, $args);
 
@@ -82,8 +82,8 @@ abstract class Handler
 
     /**
      * @param $uri
-     * @param string $method
-     * @param array $options
+     * @param  string  $method
+     * @param  array  $options
      * @return array
      */
     private function call($uri, string $method = Request::METHOD_GET, array $options = []): array
