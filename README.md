@@ -19,10 +19,15 @@ php artisan vendor:publish --tag=laravel-emay-sms
 
 ## Usage
 ``` php
-
+Vinhson\LaravelEmaySms\Facades\NoteSMSHandler::sendSimpleinterSMS('17666666666', 'test')
 ```
 
+## Support Laravel
 
+|laravel|package branch|
+|:---|:---|
+|laravel9|v2|
+|laravel5 - laravel8|main|
 
 ## License
 
