@@ -7,14 +7,17 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms\Tests;
 
-use Mockery;
-use Illuminate\Support\Arr;
 use Illuminate\Foundation\Application;
-use Mockery\{LegacyMockInterface, MockInterface};
+use Illuminate\Support\Arr;
+use Mockery;
+use Mockery\LegacyMockInterface;
+use Mockery\MockInterface;
+use Vinhson\LaravelEmaySms\Driver;
 use Vinhson\LaravelEmaySms\Facades\LaravelEmaySms;
-use Vinhson\LaravelEmaySms\{Driver, LaravelEmaySmsServiceProvider};
+use Vinhson\LaravelEmaySms\LaravelEmaySmsServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -29,22 +32,20 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     /**
      * Get package providers.
      *
-     * @param Application $app
-     *
+     * @param  Application  $app
      * @return array
      */
     protected function getPackageProviders($app): array
     {
         return [
-            LaravelEmaySmsServiceProvider::class
+            LaravelEmaySmsServiceProvider::class,
         ];
     }
 
     /**
      * Get package aliases.
      *
-     * @param Application $app
-     *
+     * @param  Application  $app
      * @return array
      */
     protected function getPackageAliases($app)
@@ -95,7 +96,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         return [
             'status' => 200,
             'data' => $data,
-            'msg' => 'ok'
+            'msg' => 'ok',
         ];
     }
 }

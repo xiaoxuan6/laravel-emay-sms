@@ -7,6 +7,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms\Result;
 
 use Illuminate\Support\Arr;
@@ -17,9 +18,9 @@ abstract class Result
 
     public const SUCCESS_CODE = 'SUCCESS';
 
-    public function __construct($reponse)
+    public function __construct($response)
     {
-        $this->response = $reponse;
+        $this->response = $response;
     }
 
     public function isSuccess(): bool

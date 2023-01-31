@@ -7,6 +7,7 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms;
 
 use Illuminate\Support\ServiceProvider;
@@ -18,7 +19,7 @@ class LaravelEmaySmsServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = true;
+    protected bool $defer = true;
 
     /**
      * Bootstrap any application services.
@@ -28,7 +29,7 @@ class LaravelEmaySmsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/config.php' => config_path('laravel-emay-sms.php')
+            __DIR__.'/../config/config.php' => config_path('laravel-emay-sms.php'),
         ], 'laravel-emay-sms');
     }
 
@@ -54,7 +55,7 @@ class LaravelEmaySmsServiceProvider extends ServiceProvider
     public function provides(): array
     {
         return [
-            'laravel-emay-sms'
+            'laravel-emay-sms',
         ];
     }
 }

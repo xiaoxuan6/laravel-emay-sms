@@ -7,45 +7,33 @@
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
+
 namespace Vinhson\LaravelEmaySms\Handler;
 
 use Carbon\Carbon;
-use GuzzleHttp\Client;
+use Illuminate\Config\Repository;
+use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Request;
-use GuzzleHttp\Exception\{GuzzleException, RequestException};
 
 abstract class Handler
 {
     private const BASE_URI = 'www.btom.cn:8080';
 
-    private static $client;
-
     /**
-     * @var string|mixed
+     * @var array|mixed
      */
-    private $appId;
-
+    private mixed $secret;
     /**
-     * @var string|mixed
+     * @var array|mixed
      */
-    private $secret;
+    private mixed $appId;
 
-    public function __construct($config)
+    public function __construct(
+        protected Repository $config
+    )
     {
-        $this->appId = $config['appId'] ?? '';
-        $this->secret = $config['secret'] ?? '';
-    }
-
-    /**
-     * @return Client
-     */
-    protected function getClient(): Client
-    {
-        if (empty(self::$client)) {
-            self::$client = new Client(['timeout' => 30, 'verify' => false]);
-        }
-
-        return self::$client;
+        $this->appId = $this->config->get('laravel-emay-sms.app_id', '');
+        $this->secret = $this->config->get('laravel-emay-sms.secret', '');
     }
 
     /**
@@ -101,14 +89,14 @@ abstract class Handler
     private function call($uri, string $method = Request::METHOD_GET, array $options = []): array
     {
         try {
-            $result = $this->getClient()->request($method, $uri, $options);
+            $result = Http::send($method, $uri, $options);
 
             return [
-                'status' => $result->getStatusCode(),
-                'data' => json_decode($result->getBody()->getContents(), true),
-                'msg' => 'ok'
+                'status' => $result->status(),
+                'data' => $result->json(),
+                'msg' => 'ok',
             ];
-        } catch (RequestException | GuzzleException $exception) {
+        } catch (\Error $exception) {
             return [
                 'status' => $exception->getCode(),
                 'data' => '',
